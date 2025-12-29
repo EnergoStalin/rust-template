@@ -1,0 +1,24 @@
+[placeholders]
+licence = { prompt = "Licence", choices = ["GPL3", "MIT"], default = "GPL3", type = "string" }
+organization = { prompt = "Copyright holder", default = "EnergoStalin", type = "string" }
+
+[hooks]
+pre = ["hooks/year.rhai"]
+
+[template]
+cargo_generate_version = ">=0.23.7"
+include = [
+  "src/lib.rs",
+  "Cargo.toml",
+  "rustfmt.toml",
+  ".editorconfig"
+]
+
+[conditional.'crate_type != "lib"']
+include = ["src/main.rs"]
+
+[conditional.'licence == "MIT"']
+include = ["LICENCE-UNRESTRICTED"]
+
+[conditional.'licence == "GPL3"']
+include = ["LICENCE-GPL3"]
