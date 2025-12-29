@@ -3,7 +3,7 @@ licence = { prompt = "Licence", choices = ["GPL3", "MIT"], default = "GPL3", typ
 organization = { prompt = "Copyright holder", default = "EnergoStalin", type = "string" }
 
 [hooks]
-pre = ["hooks/year.rhai"]
+pre = ["hooks/year.rhai", "hooks/licence.rhai"]
 
 [template]
 cargo_generate_version = ">=0.23.7"
@@ -11,14 +11,11 @@ include = [
   "src/lib.rs",
   "Cargo.toml",
   "rustfmt.toml",
-  ".editorconfig"
+  ".editorconfig",
+  "LICENCE.txt",
+  ".gitignore"
 ]
+ignore = ["hooks", "licences"]
 
 [conditional.'crate_type != "lib"']
 include = ["src/main.rs"]
-
-[conditional.'licence == "MIT"']
-include = ["LICENCE-UNRESTRICTED"]
-
-[conditional.'licence == "GPL3"']
-include = ["LICENCE-GPL3"]
