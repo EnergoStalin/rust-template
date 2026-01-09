@@ -3,5 +3,4 @@ name = "{{project-name}}"
 version = "0.1.0"
 authors = ["{{authors}}"]
 edition = "2024"
-license-file = "LICENSE.txt"
-
+{% if licence %}license-file = "LICENSE.txt"{% endif %}

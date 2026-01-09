@@ -1,21 +1,25 @@
-[placeholders]
+[template]
+cargo_generate_version = ">=0.23.7"
+include = ["*"]
+ignore = ["hooks", "licences"]
+
+[conditional.'within_cargo_project != true'.placeholders]
 licence = { prompt = "Licence", choices = ["GPL3", "MIT"], default = "GPL3", type = "string" }
 organization = { prompt = "Copyright holder", default = "EnergoStalin", type = "string" }
 
-[hooks]
-pre = ["hooks/year.rhai", "hooks/licence.rhai"]
-
-[template]
-cargo_generate_version = ">=0.23.7"
-include = [
-  "src/lib.rs",
-  "Cargo.toml",
+[conditional.'within_cargo_project == true']
+ignore = [
   "rustfmt.toml",
   ".editorconfig",
   "LICENCE.txt",
   ".gitignore"
 ]
-ignore = ["hooks", "licences"]
+
+[conditional.'within_cargo_project != true'.hooks]
+pre = ["hooks/year.rhai", "hooks/licence.rhai"]
+
+[conditional.'crate_type == "lib"']
+ignore = ["src/main.rs"]
 
 [conditional.'crate_type != "lib"']
-include = ["src/main.rs"]
+ignore = ["src/lib.rs"]
